@@ -380,6 +380,31 @@ RULES: list[Rule] = [
     # ═══════════════════════════════════════════════════════════
 
     Rule(
+        signal_id="SIG_UTILITY_DISCONNECTION",
+        category="UTILITY_SCAM",
+        severity=SignalSeverity.CRITICAL,
+        confidence=0.96,
+        false_positive_risk="VERY_LOW",
+        match_patterns=[
+            r"\b(electricity|power|light|connection|meter).{0,40}\b(disconnect|disconnected|cut|suspended|tonight|night)\b",
+            r"\b(bill|payment).{0,30}(unpaid|pending|due).{0,30}(contact|call|update|officer|apk)\b",
+            r"\b(power officer|electricity officer|bill officer)\b",
+        ],
+    ).compile(),
+
+    Rule(
+        signal_id="SIG_PACKAGE_COURIER",
+        category="COURIER_SCAM",
+        severity=SignalSeverity.HIGH,
+        confidence=0.88,
+        false_positive_risk="LOW",
+        match_patterns=[
+            r"\b(customs|courier|parcel|package|fedex|delhivery|dhl|post).{0,40}\b(held|seized|illegal|narcotics|drugs|pay|address)\b",
+            r"\b(parcel|package).{0,30}(update address|confirm delivery|pay customs)\b",
+        ],
+    ).compile(),
+
+    Rule(
         signal_id="SIG_KYC_URGENCY",
         category="KYC",
         severity=SignalSeverity.HIGH,
@@ -388,6 +413,7 @@ RULES: list[Rule] = [
         match_patterns=[
             r"\b(kyc.{0,30}(pending|update|verify|expire|incomplete|urgent|immediately|failed))\b",
             r"\b(update.{0,20}kyc.{0,20}(to avoid|prevent|or).{0,20}(block|suspend|close))\b",
+            r"\b(pan|aadhaar|account).{0,30}(linked|update|verify).{0,20}(link|click|here)\b",
         ],
     ).compile(),
 ]

@@ -8,7 +8,8 @@ from backend.schemas.enums import (
 
 class RiskAssessment(BaseModel):
     risk_band: RiskBand
-    # Internal score — never exposed to end users in API response
+    risk_score: float = Field(default=0.0, ge=0.0, le=100.0)
+    # Internal score — used in calculation
     _internal_score: float = 0.0
     confidence: float = Field(..., ge=0.0, le=1.0)
     top_indicators: list[str] = Field(default_factory=list, max_length=5)

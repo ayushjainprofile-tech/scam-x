@@ -67,14 +67,18 @@ interface EducationalTipCardProps {
 }
 
 export const EducationalTipCard: React.FC<EducationalTipCardProps> = ({ tip }) => {
+  const category = tip?.category || 'Financial Safety';
+  const title = tip?.title || 'Recognizing Digital Impersonation Scams';
+  const content = tip?.content || 'Fraudsters create artificial urgency claiming immediate account block or disconnection. Legitimate institutions send written notices and never demand urgent payment via personal mobile numbers.';
+
   return (
     <div className="edu-tip-card">
       <div className="edu-header">
         <Sparkles size={18} className="edu-icon" />
-        <span className="edu-category">{tip.category} Tip</span>
+        <span className="edu-category">{category} Tip</span>
       </div>
-      <h4 className="edu-title">{tip.title}</h4>
-      <p className="edu-content">{tip.content}</p>
+      <h4 className="edu-title">{title}</h4>
+      <p className="edu-content">{content}</p>
     </div>
   );
 };

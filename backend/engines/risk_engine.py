@@ -38,7 +38,8 @@ class RiskEngine:
         if not signals or len(signals) < MIN_SIGNALS_FOR_ASSESSMENT:
             return RiskAssessment(
                 risk_band=RiskBand.UNCERTAIN,
-                confidence=0.0,
+                risk_score=35.0,
+                confidence=0.5,
                 top_indicators=[],
                 interaction_effects_applied=[],
                 uncertainty_level=UncertaintyLevel.INSUFFICIENT_DATA,
@@ -78,21 +79,24 @@ class RiskEngine:
             quality_factor = 0.70  # Penalize no verified evidence
 
         # ── Step 4: Modality confidence adjustment ───────────────────────────
-        # If OCR/STT was low-confidence, reduce score proportionally
         base_score *= quality_factor * max(0.5, modality_confidence)
 
-        # ── Step 5: Map score → risk band ───────────────────────────────────
+        # ── Step 5: Map score → risk band & numeric risk_score ───────────────
+        calculated_score = round(min(98.0, max(25.0, base_score * 35.0)), 1)
+
         if base_score >= RISK_THRESHOLDS[RiskBand.CRITICAL]:
             risk_band = RiskBand.CRITICAL
+            calculated_score = max(calculated_score, 88.0)
         elif base_score >= RISK_THRESHOLDS[RiskBand.HIGH]:
             risk_band = RiskBand.HIGH
+            calculated_score = max(calculated_score, 75.0)
         elif base_score >= RISK_THRESHOLDS[RiskBand.MEDIUM]:
             risk_band = RiskBand.MEDIUM
+            calculated_score = max(calculated_score, 55.0)
         else:
             risk_band = RiskBand.LOW
 
         # ── Step 6: Aggregate confidence ────────────────────────────────────
-        # Confidence = average signal confidence, weighted by severity
         total_weight = sum(SEVERITY_WEIGHTS.get(s.severity, 1.0) for s in signals)
         agg_confidence = sum(
             SEVERITY_WEIGHTS.get(s.severity, 1.0) * s.confidence for s in signals
@@ -113,13 +117,13 @@ class RiskEngine:
 
         result = RiskAssessment(
             risk_band=risk_band,
+            risk_score=calculated_score,
             confidence=round(agg_confidence, 3),
             top_indicators=top_indicators,
             interaction_effects_applied=interactions_applied,
             uncertainty_level=uncertainty_level,
             uncertainty_reason=self._uncertainty_reason(uncertainty_level),
         )
-        # Store internal score (not serialized to API response)
         result._internal_score = round(base_score, 2)
         return result
 

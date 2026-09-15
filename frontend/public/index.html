@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Ronin // Neural Edges</title>
+  
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/b1314443e183d1cdd77049077c46facc?family=Orbitron-Medium" type="text/css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #FBDBAF;
+      --muted: rgba(251, 219, 175, 0.72);
+      --label: rgba(251, 219, 175, 0.48);
+      --orange: #E07020;
+      --card: rgba(10, 8, 7, 0.58);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: #C45A18;
+      color: var(--cream);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    h1, h2, h3, .heading-font {
+      font-family: 'Orbitron-Medium', 'Arial Narrow', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    /* Main Container */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background: #C45A18;
+    }
+
+    /* Base Image Layer */
+    .hero-base-img {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    /* Reveal Image Layer */
+    .hero-reveal-img {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background-size: cover;
+      background-position: center center;
+      -webkit-mask-image: radial-gradient(circle 0px at -999px -999px, #fff, transparent);
+      mask-image: radial-gradient(circle 0px at -999px -999px, #fff, transparent);
+    }
+
+    /* UI Layout Overlay */
+    .hero-ui {
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      padding: 36px 44px 40px;
+      pointer-events: none;
+    }
+
+    /* Left Column Layout */
+    .hero-left {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 28px;
+      min-width: 0;
+    }
+
+    /* Copy Block */
+    .hero-copy {
+      max-width: 520px;
+      padding-right: 56px;
+      pointer-events: auto;
+    }
+
+    h1.words-pull-up {
+      font-size: clamp(1.55rem, 3.6vw, 3.15rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-shadow: 0 2px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    h1.words-pull-up span {
+      display: block;
+    }
+
+    .hero-copy p {
+      margin-top: 18px;
+      max-width: 340px;
+      font-size: 13.5px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    /* Icon Action Row */
+    .icon-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(251, 219, 175, 0.55);
+      background: transparent;
+      color: var(--cream);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(251, 219, 175, 0.1);
+      border-color: var(--cream);
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 1.2;
+      fill: none;
+    }
+
+    /* Product Glass Card */
+    .product-card {
+      pointer-events: auto;
+      width: min(320px, 100%);
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      grid-template-rows: auto auto;
+      gap: 10px 14px;
+      padding: 12px;
+      border-radius: 18px;
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(251, 219, 175, 0.08);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    .product-thumb {
+      grid-column: 1;
+      grid-row: 1 / -1;
+      width: 86px;
+      min-height: 86px;
+      border-radius: 12px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .product-body {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .product-body h2 {
+      font-size: 11px;
+      line-height: 1.25;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+
+    .product-body p {
+      margin-top: 6px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .cart-btn {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: start;
+      align-self: end;
+      border: 1px solid var(--cream);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .cart-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Page Counter */
+    .hero-page {
+      position: absolute;
+      top: 36px;
+      right: 44px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: rgba(251, 219, 175, 0.78);
+    }
+
+    /* Specs Block */
+    .specs {
+      grid-column: 2;
+      grid-row: 3;
+      justify-self: end;
+      pointer-events: auto;
+      width: min(340px, 100%);
+    }
+
+    .specs h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      letter-spacing: 0.12em;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 7px 0;
+    }
+
+    .spec-row + .spec-row {
+      border-top: 1px solid rgba(251, 219, 175, 0.12);
+    }
+
+    .spec-label {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    .spec-value {
+      font-size: 12.5px;
+      color: var(--cream);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* Keyframe Animations */
+    @keyframes heroImageIn {
+      from {
+        opacity: 0;
+        transform: scale(1.18);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .hero-image-animate {
+      opacity: 0;
+      animation: heroImageIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: 0.15s;
+    }
+
+    @keyframes wordPullUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pull-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .pull-word:not(:last-child) {
+      margin-right: 0.3em;
+    }
+
+    .words-visible .pull-word {
+      animation: wordPullUp 0.55s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .fade-up-reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      filter: blur(8px);
+    }
+
+    .fade-up-reveal.is-visible {
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    /* Reduced Motion Preference */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-image-animate,
+      .words-visible .pull-word,
+      .fade-up-reveal.is-visible,
+      .fade-up-reveal,
+      .pull-word {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .hero-ui {
+        padding: 32px 28px 36px;
+      }
+      .hero-page {
+        top: 32px;
+        right: 28px;
+      }
+      .specs {
+        width: min(300px, 100%);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-ui {
+        padding: 28px 22px 28px;
+      }
+      .hero-page {
+        top: 28px;
+        right: 22px;
+      }
+      h1.words-pull-up {
+        font-size: clamp(1.35rem, 7.2vw, 2.4rem);
+      }
+      .hero-base-img,
+      .hero-reveal-img {
+        background-position: 40% center;
+      }
+      .specs {
+        width: min(280px, 100%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-ui {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+      }
+      .hero-left {
+        grid-row: 1 / 3;
+        gap: 24px;
+      }
+      .hero-page {
+        top: max(24px, env(safe-area-inset-top));
+        right: max(20px, env(safe-area-inset-right));
+      }
+      .specs {
+        grid-row: 3;
+        justify-self: stretch;
+        width: 100%;
+        margin-top: 8px;
+      }
+      .hero-base-img,
+      .hero-reveal-img {
+        background-position: 40% center;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+      .hero-ui {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        min-height: 100dvh;
+        justify-content: flex-start;
+        gap: 28px;
+        padding: max(22px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+      }
+      .hero-left {
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .hero-copy {
+        max-width: 100%;
+        padding-right: 48px;
+      }
+      .hero-copy p {
+        font-size: 12.5px;
+        max-width: 100%;
+      }
+      .product-card {
+        width: 100%;
+        max-width: 100%;
+      }
+      .specs {
+        width: 100%;
+        max-width: 100%;
+        margin-top: auto;
+        padding-top: 4px;
+      }
+      .spec-value {
+        white-space: normal;
+      }
+      .hero-base-img,
+      .hero-reveal-img {
+        position: absolute;
+        background-position: 40% center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ui {
+        gap: 22px;
+        padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      }
+      .hero-page {
+        font-size: 12px;
+      }
+      h1.words-pull-up {
+        font-size: clamp(1.1rem, 8.5vw, 1.65rem);
+      }
+      .hero-copy p {
+        font-size: 12px;
+        margin-top: 14px;
+      }
+      .icon-row {
+        margin-top: 16px;
+        gap: 8px;
+      }
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+      }
+      .hero-left {
+        gap: 22px;
+      }
+      .product-card {
+        grid-template-columns: 72px 1fr;
+        gap: 8px 12px;
+        padding: 10px;
+        border-radius: 14px;
+      }
+      .product-thumb {
+        width: 72px;
+        min-height: 72px;
+        border-radius: 10px;
+      }
+      .product-body h2 {
+        font-size: 10px;
+      }
+      .product-body p {
+        font-size: 11px;
+      }
+      .cart-btn {
+        padding: 6px 14px;
+        font-size: 11px;
+      }
+      .specs h3 {
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+      .spec-row {
+        padding: 6px 0;
+        gap: 10px;
+      }
+      .spec-label,
+      .spec-value {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      h1.words-pull-up {
+        font-size: 1rem;
+      }
+      .product-card {
+        grid-template-columns: 64px 1fr;
+      }
+      .product-thumb {
+        width: 64px;
+        min-height: 64px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <!-- Base Layer Image -->
+    <div class="hero-base-img hero-image-animate" style="background-image: url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260831_115955_2a9adb39-5e9b-4ced-96e2-6900eabe3de9.png&w=1920&q=85');"></div>
+
+    <!-- Spotlight Reveal Layer Image -->
+    <div class="hero-reveal-img" id="reveal-img" style="background-image: url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260831_123709_183f0065-efb2-4bb2-a849-13aaa5af2f3f.png&w=1920&q=85');"></div>
+
+    <!-- UI Overlay Grid -->
+    <div class="hero-ui">
+      <!-- Left Column -->
+      <div class="hero-left">
+        <div class="hero-copy">
+          <h1 class="words-pull-up">
+            <span>RONIN-X //</span>
+            <span>SHADOW</span>
+            <span>NIGHTFALL</span>
+          </h1>
+          <p class="fade-up-reveal" data-delay="0.5">
+            Cultivated with high-res optics and a zero-gravity frame for those who don't just watch the future—they wield it. Shift your reality.
+          </p>
+          <div class="icon-row fade-up-reveal" data-delay="0.65">
+            <button class="icon-btn" aria-label="Main core">
+              <svg viewBox="0 0 16 16">
+                <path d="M8 1.4L13.8 4.7V11.3L8 14.6L2.2 11.3V4.7L8 1.4Z"></path>
+                <circle cx="8" cy="8" r="1.35" fill="currentColor"></circle>
+              </svg>
+            </button>
+            <button class="icon-btn" aria-label="Vision">
+              <svg viewBox="0 0 16 16">
+                <path d="M2 5.2V2h3.2" stroke-linecap="round"></path>
+                <path d="M14 5.2V2h-3.2" stroke-linecap="round"></path>
+                <path d="M2 10.8V14h3.2" stroke-linecap="round"></path>
+                <path d="M14 10.8V14h-3.2" stroke-linecap="round"></path>
+                <rect x="5.2" y="5.2" width="5.6" height="5.6"></rect>
+              </svg>
+            </button>
+            <button class="icon-btn" aria-label="Force">
+              <svg viewBox="0 0 16 16">
+                <path d="M9.2 1.6L4 9.1h3.5L6.8 14.4 12 6.9H8.5L9.2 1.6Z" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Card -->
+        <article class="product-card">
+          <div class="product-thumb" aria-hidden="true" style="background-image: url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260831_121937_3f02b5a0-5b86-43d9-b30e-03c5e46632e7.png&w=1920&q=85');"></div>
+          <div class="product-body">
+            <h2 class="words-pull-up">CR-01: CYBER FRAME</h2>
+            <p class="fade-up-reveal" data-delay="1.05">Precision-grade optics and a light frame for comfort and clarity.</p>
+          </div>
+          <button class="cart-btn fade-up-reveal" data-delay="1.15">Reserve Now</button>
+        </article>
+      </div>
+
+      <!-- Page Indicator -->
+      <div class="hero-page fade-up-reveal" data-delay="0.75">1/26</div>
+
+      <!-- Specs Column -->
+      <div class="specs">
+        <h3 class="words-pull-up">Operative Specs</h3>
+        <div class="spec-row fade-up-reveal" data-delay="1.2">
+          <span class="spec-label">Vision</span>
+          <span class="spec-value">Dual 8K Pulse-OLED</span>
+        </div>
+        <div class="spec-row fade-up-reveal" data-delay="1.3">
+          <span class="spec-label">Nerve</span>
+          <span class="spec-value">R1 - Ronin Engines</span>
+        </div>
+        <div class="spec-row fade-up-reveal" data-delay="1.4">
+          <span class="spec-label">Reflex</span>
+          <span class="spec-value">144Hz Low-Lag Ops</span>
+        </div>
+        <div class="spec-row fade-up-reveal" data-delay="1.5">
+          <span class="spec-label">Armor</span>
+          <span class="spec-value">Lightweight Shadow Shell</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      // 1. SPOTLIGHT REVEAL
+      const revealImg = document.getElementById('reveal-img');
+
+      function updateSpotlight(clientX, clientY) {
+        if (!revealImg) return;
+        const rect = revealImg.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        const width = window.innerWidth;
+        const R = width < 480 ? 120 : width < 720 ? 160 : 260;
+
+        const maskStyle = `radial-gradient(circle ${R}px at ${x}px ${y}px, #fff 0%, #fff 40%, rgba(255,255,255,0.75) 60%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.12) 88%, transparent 100%)`;
+        revealImg.style.webkitMaskImage = maskStyle;
+        revealImg.style.maskImage = maskStyle;
+      }
+
+      window.addEventListener('mousemove', function (e) {
+        updateSpotlight(e.clientX, e.clientY);
+      });
+
+      window.addEventListener('touchmove', function (e) {
+        if (e.touches && e.touches[0]) {
+          updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      // 2. WORD SPLIT
+      let globalWordIndex = 0;
+      const pullUpElements = document.querySelectorAll('.words-pull-up');
+
+      pullUpElements.forEach(function (el) {
+        if (el.dataset.split) return;
+        el.dataset.split = "true";
+
+        const directSpans = Array.from(el.children).filter(function (child) {
+          return child.tagName.toLowerCase() === 'span';
+        });
+
+        if (directSpans.length > 0) {
+          directSpans.forEach(function (spanEl) {
+            spanEl.classList.add('pull-line');
+            const words = spanEl.textContent.trim().split(/\s+/);
+            spanEl.innerHTML = '';
+            words.forEach(function (w) {
+              const wordSpan = document.createElement('span');
+              wordSpan.className = 'pull-word';
+              wordSpan.textContent = w;
+              wordSpan.style.animationDelay = (globalWordIndex * 0.1).toFixed(2) + 's';
+              globalWordIndex++;
+              spanEl.appendChild(wordSpan);
+              spanEl.appendChild(document.createTextNode(' '));
+            });
+          });
+        } else {
+          const words = el.textContent.trim().split(/\s+/);
+          el.innerHTML = '';
+          words.forEach(function (w) {
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'pull-word';
+            wordSpan.textContent = w;
+            wordSpan.style.animationDelay = (globalWordIndex * 0.1).toFixed(2) + 's';
+            globalWordIndex++;
+            el.appendChild(wordSpan);
+            el.appendChild(document.createTextNode(' '));
+          });
+        }
+      });
+
+      // 3. SCROLL REVEAL (IntersectionObserver)
+      if ('IntersectionObserver' in window) {
+        const pullUpObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('words-visible');
+              pullUpObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+
+        pullUpElements.forEach(function (el) {
+          pullUpObserver.observe(el);
+        });
+
+        const fadeElements = document.querySelectorAll('.fade-up-reveal');
+        const fadeObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              const delay = entry.target.getAttribute('data-delay');
+              if (delay) {
+                entry.target.style.animationDelay = delay + 's';
+              }
+              entry.target.classList.add('is-visible');
+              fadeObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        fadeElements.forEach(function (el) {
+          fadeObserver.observe(el);
+        });
+      } else {
+        // Fallback for older browsers
+        pullUpElements.forEach(function (el) {
+          el.classList.add('words-visible');
+        });
+        document.querySelectorAll('.fade-up-reveal').forEach(function (el) {
+          const delay = el.getAttribute('data-delay');
+          if (delay) {
+            el.style.animationDelay = delay + 's';
+          }
+          el.classList.add('is-visible');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

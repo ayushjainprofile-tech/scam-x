@@ -7,7 +7,10 @@ interface ActionPlanProps {
 }
 
 export const ActionPlanCard: React.FC<ActionPlanProps> = ({ actionPlan }) => {
-  const { primary_recommendation, do_list, dont_list, reporting_url } = actionPlan;
+  const primary_recommendation = actionPlan?.primary_recommendation || 'DO NOT share OTPs, download APKs, or transfer money. Verify directly with official authorities.';
+  const do_list = actionPlan?.do_list || ['Verify sender credentials via official banking portal.', 'Report suspicious mobile numbers to 1930 Cyber Crime Helpline.'];
+  const dont_list = actionPlan?.dont_list || ['Never install remote screen sharing software or unknown APK apps.', 'Never send money to unverified UPI handles.'];
+  const reporting_url = actionPlan?.reporting_url || 'https://cybercrime.gov.in';
 
   return (
     <div className="action-plan-card">

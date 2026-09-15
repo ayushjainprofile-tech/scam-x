@@ -1,0 +1,546 @@
+@import url('https://db.onlinewebfonts.com/c/b1314443e183d1cdd77049077c46facc?family=Orbitron-Medium');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --cream: #FBDBAF;
+  --muted: rgba(251, 219, 175, 0.72);
+  --label: rgba(251, 219, 175, 0.48);
+  --orange: #E07020;
+  --card: rgba(10, 8, 7, 0.58);
+}
+
+.ronin-hero-wrapper {
+  background: #C45A18;
+  color: var(--cream);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.ronin-hero-wrapper h1,
+.ronin-hero-wrapper h2,
+.ronin-hero-wrapper h3,
+.ronin-hero-wrapper .heading-font {
+  font-family: 'Orbitron-Medium', 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* Main Container */
+.ronin-hero-wrapper .hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #C45A18;
+}
+
+/* Base Image Layer */
+.ronin-hero-wrapper .hero-base-img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center center;
+}
+
+/* Reveal Image Layer */
+.ronin-hero-wrapper .hero-reveal-img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center center;
+  -webkit-mask-image: radial-gradient(circle 0px at -999px -999px, #fff, transparent);
+  mask-image: radial-gradient(circle 0px at -999px -999px, #fff, transparent);
+}
+
+/* UI Layout Overlay */
+.ronin-hero-wrapper .hero-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  padding: 36px 44px 40px;
+  pointer-events: none;
+}
+
+/* Left Column Layout */
+.ronin-hero-wrapper .hero-left {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 28px;
+  min-width: 0;
+}
+
+/* Copy Block */
+.ronin-hero-wrapper .hero-copy {
+  max-width: 520px;
+  padding-right: 56px;
+  pointer-events: auto;
+}
+
+.ronin-hero-wrapper h1.words-pull-up {
+  font-size: clamp(1.55rem, 3.6vw, 3.15rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.22);
+}
+
+.ronin-hero-wrapper h1.words-pull-up span {
+  display: block;
+}
+
+.ronin-hero-wrapper .hero-copy p {
+  margin-top: 18px;
+  max-width: 340px;
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Main Enter TRUSTX AI Button */
+.ronin-hero-wrapper .cta-action-row {
+  margin-top: 20px;
+}
+
+.ronin-hero-wrapper .enter-trustx-main-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #FBDBAF;
+  color: #0F172A;
+  font-family: 'Orbitron-Medium', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ronin-hero-wrapper .enter-trustx-main-btn:hover {
+  background: #FFFFFF;
+  color: #000000;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(251, 219, 175, 0.4);
+}
+
+/* Icon Action Row */
+.ronin-hero-wrapper .icon-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.ronin-hero-wrapper .icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(251, 219, 175, 0.55);
+  background: transparent;
+  color: var(--cream);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.ronin-hero-wrapper .icon-btn:hover {
+  background: rgba(251, 219, 175, 0.1);
+  border-color: var(--cream);
+}
+
+.ronin-hero-wrapper .icon-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  fill: none;
+}
+
+/* Product Glass Card */
+.ronin-hero-wrapper .product-card {
+  pointer-events: auto;
+  width: min(320px, 100%);
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px 14px;
+  padding: 12px;
+  border-radius: 18px;
+  background: var(--card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(251, 219, 175, 0.08);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+.ronin-hero-wrapper .product-thumb {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  width: 86px;
+  min-height: 86px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
+
+.ronin-hero-wrapper .product-body {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.ronin-hero-wrapper .product-body h2 {
+  font-size: 11px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.ronin-hero-wrapper .product-body p {
+  margin-top: 6px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.ronin-hero-wrapper .cart-btn {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+  align-self: end;
+  border: 1px solid var(--cream);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cream);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.ronin-hero-wrapper .cart-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(251, 219, 175, 0.15);
+}
+
+/* Page Counter */
+.ronin-hero-wrapper .hero-page {
+  position: absolute;
+  top: 36px;
+  right: 44px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: rgba(251, 219, 175, 0.78);
+  pointer-events: auto;
+}
+
+/* Specs Block */
+.ronin-hero-wrapper .specs {
+  grid-column: 2;
+  grid-row: 3;
+  justify-self: end;
+  pointer-events: auto;
+  width: min(340px, 100%);
+}
+
+.ronin-hero-wrapper .specs h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  letter-spacing: 0.12em;
+}
+
+.ronin-hero-wrapper .spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 7px 0;
+}
+
+.ronin-hero-wrapper .spec-row + .spec-row {
+  border-top: 1px solid rgba(251, 219, 175, 0.12);
+}
+
+.ronin-hero-wrapper .spec-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--label);
+}
+
+.ronin-hero-wrapper .spec-value {
+  font-size: 12.5px;
+  color: var(--cream);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Keyframe Animations */
+@keyframes heroImageIn {
+  from {
+    opacity: 0;
+    transform: scale(1.18);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ronin-hero-wrapper .hero-image-animate {
+  opacity: 0;
+  animation: heroImageIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 0.15s;
+}
+
+@keyframes wordPullUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ronin-hero-wrapper .pull-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.ronin-hero-wrapper .pull-word:not(:last-child) {
+  margin-right: 0.3em;
+}
+
+.ronin-hero-wrapper .words-visible .pull-word {
+  animation: wordPullUp 0.55s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.ronin-hero-wrapper .fade-up-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(8px);
+}
+
+.ronin-hero-wrapper .fade-up-reveal.is-visible {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .ronin-hero-wrapper .hero-ui {
+    padding: 32px 28px 36px;
+  }
+  .ronin-hero-wrapper .hero-page {
+    top: 32px;
+    right: 28px;
+  }
+  .ronin-hero-wrapper .specs {
+    width: min(300px, 100%);
+  }
+}
+
+@media (max-width: 900px) {
+  .ronin-hero-wrapper .hero-ui {
+    padding: 28px 22px 28px;
+  }
+  .ronin-hero-wrapper .hero-page {
+    top: 28px;
+    right: 22px;
+  }
+  .ronin-hero-wrapper h1.words-pull-up {
+    font-size: clamp(1.35rem, 7.2vw, 2.4rem);
+  }
+  .ronin-hero-wrapper .hero-base-img,
+  .ronin-hero-wrapper .hero-reveal-img {
+    background-position: 40% center;
+  }
+  .ronin-hero-wrapper .specs {
+    width: min(280px, 100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .ronin-hero-wrapper .hero-ui {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  }
+  .ronin-hero-wrapper .hero-left {
+    grid-row: 1 / 3;
+    gap: 24px;
+  }
+  .ronin-hero-wrapper .hero-page {
+    top: max(24px, env(safe-area-inset-top));
+    right: max(20px, env(safe-area-inset-right));
+  }
+  .ronin-hero-wrapper .specs {
+    grid-row: 3;
+    justify-self: stretch;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .ronin-hero-wrapper .hero-base-img,
+  .ronin-hero-wrapper .hero-reveal-img {
+    background-position: 40% center;
+  }
+}
+
+@media (max-width: 720px) {
+  .ronin-hero-wrapper .hero {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .ronin-hero-wrapper .hero-ui {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    justify-content: flex-start;
+    gap: 28px;
+    padding: max(22px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  }
+  .ronin-hero-wrapper .hero-left {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .ronin-hero-wrapper .hero-copy {
+    max-width: 100%;
+    padding-right: 48px;
+  }
+  .ronin-hero-wrapper .hero-copy p {
+    font-size: 12.5px;
+    max-width: 100%;
+  }
+  .ronin-hero-wrapper .product-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .ronin-hero-wrapper .specs {
+    width: 100%;
+    max-width: 100%;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  .ronin-hero-wrapper .spec-value {
+    white-space: normal;
+  }
+  .ronin-hero-wrapper .hero-base-img,
+  .ronin-hero-wrapper .hero-reveal-img {
+    position: absolute;
+    background-position: 40% center;
+  }
+}
+
+@media (max-width: 480px) {
+  .ronin-hero-wrapper .hero-ui {
+    gap: 22px;
+    padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  .ronin-hero-wrapper .hero-page {
+    font-size: 12px;
+  }
+  .ronin-hero-wrapper h1.words-pull-up {
+    font-size: clamp(1.1rem, 8.5vw, 1.65rem);
+  }
+  .ronin-hero-wrapper .hero-copy p {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+  .ronin-hero-wrapper .icon-row {
+    margin-top: 16px;
+    gap: 8px;
+  }
+  .ronin-hero-wrapper .icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+  .ronin-hero-wrapper .hero-left {
+    gap: 22px;
+  }
+  .ronin-hero-wrapper .product-card {
+    grid-template-columns: 72px 1fr;
+    gap: 8px 12px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+  .ronin-hero-wrapper .product-thumb {
+    width: 72px;
+    min-height: 72px;
+    border-radius: 10px;
+  }
+  .ronin-hero-wrapper .product-body h2 {
+    font-size: 10px;
+  }
+  .ronin-hero-wrapper .product-body p {
+    font-size: 11px;
+  }
+  .ronin-hero-wrapper .cart-btn {
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+  .ronin-hero-wrapper .specs h3 {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+  .ronin-hero-wrapper .spec-row {
+    padding: 6px 0;
+    gap: 10px;
+  }
+  .ronin-hero-wrapper .spec-label,
+  .ronin-hero-wrapper .spec-value {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .ronin-hero-wrapper h1.words-pull-up {
+    font-size: 1rem;
+  }
+  .ronin-hero-wrapper .product-card {
+    grid-template-columns: 64px 1fr;
+  }
+  .ronin-hero-wrapper .product-thumb {
+    width: 64px;
+    min-height: 64px;
+  }
+}

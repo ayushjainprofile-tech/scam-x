@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Zap } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 interface HeaderProps {
   apiStatus: boolean | null;
@@ -7,33 +7,30 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ apiStatus }) => {
   return (
-    <header className="header-glass">
+    <header className="header-command-center">
       <div className="header-container">
         <div className="brand-logo">
-          <div className="logo-icon-wrapper">
-            <ShieldAlert className="logo-icon" size={28} />
-          </div>
-          <div className="brand-titles">
-            <h1 className="brand-name">
-              SCAM<span className="brand-highlight">X</span> <span className="ai-badge">AI</span>
-            </h1>
-            <p className="brand-tagline">Multimodal Scam Risk Intelligence & Decision Engine</p>
-          </div>
+          <Shield size={20} strokeWidth={1.5} className="brand-icon-inline" />
+          <h1 className="brand-name">
+            TRUST<span className="brand-highlight">X</span>
+          </h1>
+          <span className="brand-sub-tag font-mono">v1.2 ENGINE</span>
         </div>
 
         <div className="header-actions">
-          <div className={`status-badge ${apiStatus === true ? 'status-online' : apiStatus === false ? 'status-offline' : 'status-checking'}`}>
-            <span className="status-dot"></span>
-            <span className="status-text">
-              {apiStatus === true ? 'Engine Active' : apiStatus === false ? 'Engine Offline' : 'Connecting...'}
+          <div className="engine-status-meta">
+            <span className={`status-indicator-dot ${apiStatus === true ? 'active' : 'fallback'}`}></span>
+            <span className="status-meta-text">
+              {apiStatus === true ? 'ENGINE READY' : apiStatus === false ? 'DEGRADED FALLBACK' : 'CONNECTING'}
             </span>
           </div>
-          <div className="hackathon-tag">
-            <Zap size={14} />
-            <span>PS-1 Financial Safety</span>
-          </div>
+          <span className="meta-separator">•</span>
+          <span className="hackathon-meta">PS-1 Financial Safety</span>
         </div>
       </div>
     </header>
   );
 };
+
+
+

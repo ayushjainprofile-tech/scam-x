@@ -12,25 +12,29 @@ interface InputTabsProps {
 
 const SAMPLE_PRESETS = [
   {
-    label: '⚡ Urgent Electricity Bill Fraud',
+    label: 'Urgent Electricity Bill Fraud',
+    dotColor: 'dot-warning',
     type: 'text' as InputType,
     content: 'URGENT NOTICE: Dear Customer, your electricity power connection will be disconnected tonight at 9:30 PM because your previous month bill was not updated. Please contact Power Officer Mr. Sharma immediately at 9876543210 to update your payment via APK app.',
     context: 'Received via SMS from unknown number'
   },
   {
-    label: '🏦 Fake Bank Account Freeze (UPI Scam)',
+    label: 'Fake Bank Account Freeze',
+    dotColor: 'dot-danger',
     type: 'text' as InputType,
     content: 'ALERT: Your SBI YONO Account has been blocked today due to pending KYC verification. Click here immediately to unblock your account before 2 hours: http://sbi-kyc-update-login.top/verify. Do not share OTP.',
     context: 'WhatsApp message from unregistered business account'
   },
   {
-    label: '💼 Part-Time Job / Telegram Prepaid Scam',
+    label: 'Telegram Job / Prepaid Scam',
+    dotColor: 'dot-purple',
     type: 'text' as InputType,
     content: 'Earn ₹5000 to ₹15000 daily working from home! Simple YouTube video liking job. Daily payout guaranteed. Deposit ₹1000 security task to unlock VIP Level 1 high yield earnings.',
     context: 'Telegram group invite'
   },
   {
-    label: '🔗 Suspicious Phishing URL Check',
+    label: 'Suspicious Phishing Link',
+    dotColor: 'dot-teal',
     type: 'url' as InputType,
     content: 'https://paytm-kyc-update-portal-fast.tech/refund-login',
     context: 'Link sent in SMS claiming cash back refund'
@@ -97,157 +101,175 @@ export const InputTabs: React.FC<InputTabsProps> = ({
   };
 
   return (
-    <div className="input-section-card">
-      <div className="tab-navigation">
+    <div className="command-input-wrapper">
+      {/* Segmented Control Bar */}
+      <div className="segmented-control-nav" role="tablist" aria-label="Input format selector">
         <button
-          className={`tab-btn ${activeTab === 'text' ? 'active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === 'text'}
+          className={`segmented-tab-btn ${activeTab === 'text' ? 'active' : ''}`}
           onClick={() => { setActiveTab('text'); setSelectedFile(null); }}
         >
-          <FileText size={18} />
+          <FileText size={16} strokeWidth={1.5} className="tab-icon" />
           <span>Text Message</span>
         </button>
         <button
-          className={`tab-btn ${activeTab === 'image' ? 'active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === 'image'}
+          className={`segmented-tab-btn ${activeTab === 'image' ? 'active' : ''}`}
           onClick={() => { setActiveTab('image'); setSelectedFile(null); }}
         >
-          <ImageIcon size={18} />
+          <ImageIcon size={16} strokeWidth={1.5} className="tab-icon" />
           <span>Screenshot / OCR</span>
         </button>
         <button
-          className={`tab-btn ${activeTab === 'audio' ? 'active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === 'audio'}
+          className={`segmented-tab-btn ${activeTab === 'audio' ? 'active' : ''}`}
           onClick={() => { setActiveTab('audio'); setSelectedFile(null); }}
         >
-          <Mic size={18} />
+          <Mic size={16} strokeWidth={1.5} className="tab-icon" />
           <span>Voice Call / Audio</span>
         </button>
         <button
-          className={`tab-btn ${activeTab === 'url' ? 'active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === 'url'}
+          className={`segmented-tab-btn ${activeTab === 'url' ? 'active' : ''}`}
           onClick={() => { setActiveTab('url'); setSelectedFile(null); }}
         >
-          <LinkIcon size={18} />
+          <LinkIcon size={16} strokeWidth={1.5} className="tab-icon" />
           <span>URL Analyzer</span>
         </button>
       </div>
 
-      <div className="presets-container">
-        <div className="presets-header">
-          <Sparkles size={14} className="sparkle-icon" />
-          <span>Quick Demo Presets:</span>
+      {/* Demo Presets Row */}
+      <div className="presets-command-bar">
+        <div className="presets-label">
+          <Sparkles size={13} strokeWidth={1.5} className="sparkle-icon" />
+          <span>Quick Test Presets:</span>
         </div>
-        <div className="preset-buttons">
+        <div className="preset-chips-row">
           {SAMPLE_PRESETS.map((preset, idx) => (
             <button
               key={idx}
               type="button"
-              className="preset-pill-btn"
+              className="preset-chip-btn"
               onClick={() => handlePresetSelect(preset)}
             >
-              {preset.label}
+              <span className={`preset-dot ${preset.dotColor}`}></span>
+              <span className="preset-chip-text">{preset.label}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="tab-form">
-        {activeTab === 'text' && (
-          <div className="form-group">
-            <label htmlFor="text-input" className="form-label">
-              Paste suspicious message, SMS, WhatsApp text, or email body:
-            </label>
-            <textarea
-              id="text-input"
-              className="form-textarea"
-              rows={5}
-              placeholder="e.g. URGENT: Your bank account will be blocked today due to pending KYC verification..."
-              value={textInput}
-              onChange={(e) => setTextInput(e.target.value)}
-              required
-            />
-          </div>
-        )}
+      {/* Main Elevated Input Card */}
+      <div className="elevated-input-card">
+        <form onSubmit={handleSubmit} className="command-form">
+          {activeTab === 'text' && (
+            <div className="form-group-container">
+              <label htmlFor="text-input" className="command-form-label">
+                Paste suspicious message, SMS, WhatsApp text, or email body:
+              </label>
+              <div className="input-focus-ring-wrapper">
+                <textarea
+                  id="text-input"
+                  className="command-textarea"
+                  rows={5}
+                  placeholder="e.g. URGENT NOTICE: Dear customer, your electricity power connection will be disconnected tonight at 9:30 PM..."
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          )}
 
-        {activeTab === 'url' && (
-          <div className="form-group">
-            <label htmlFor="url-input" className="form-label">
-              Enter suspicious link or website URL:
+          {activeTab === 'url' && (
+            <div className="form-group-container">
+              <label htmlFor="url-input" className="command-form-label">
+                Enter suspicious link or website URL:
+              </label>
+              <div className="input-focus-ring-wrapper">
+                <input
+                  id="url-input"
+                  type="url"
+                  className="command-input"
+                  placeholder="https://sbi-kyc-verify.top/login"
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  required
+                />
+              </div>
+              <p className="field-hint-security">
+                <AlertCircle size={14} strokeWidth={1.5} /> Passive static analysis — safe evaluation without triggering client execution.
+              </p>
+            </div>
+          )}
+
+          {(activeTab === 'image' || activeTab === 'audio') && (
+            <div className="form-group-container">
+              <label className="command-form-label">
+                {activeTab === 'image' ? 'Upload Screenshot / Image (PNG, JPG, WEBP):' : 'Upload Recorded Call / Voice Note (MP3, WAV, M4A):'}
+              </label>
+              <div className="file-drop-zone-command">
+                <input
+                  type="file"
+                  id="file-upload"
+                  className="file-input-hidden"
+                  accept={activeTab === 'image' ? 'image/*' : 'audio/*'}
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="file-upload" className="file-drop-label-command">
+                  <Upload size={28} strokeWidth={1.5} className="upload-icon-command" />
+                  <span className="file-drop-title">
+                    {selectedFile ? selectedFile.name : `Click or drag ${activeTab === 'image' ? 'image screenshot' : 'audio clip'} here`}
+                  </span>
+                  <span className="file-drop-sub">Maximum file size: 10MB</span>
+                </label>
+              </div>
+              {previewUrl && (
+                <div className="image-preview-command">
+                  <img src={previewUrl} alt="Upload Preview" className="preview-img-command" />
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="form-group-container context-divider">
+            <label htmlFor="context-input" className="command-form-label secondary-label">
+              Context / Platform details (optional):
             </label>
             <input
-              id="url-input"
-              type="url"
-              className="form-input"
-              placeholder="https://sbi-kyc-verify.top/login"
-              value={urlInput}
-              onChange={(e) => setUrlInput(e.target.value)}
-              required
+              id="context-input"
+              type="text"
+              className="command-input secondary-input"
+              placeholder="e.g. Received via WhatsApp from unknown mobile number +91-9876543210"
+              value={contextInput}
+              onChange={(e) => setContextInput(e.target.value)}
             />
-            <p className="field-hint">
-              <AlertCircle size={14} /> SCAMX performs static analysis safely without opening or executing the site.
-            </p>
           </div>
-        )}
 
-        {(activeTab === 'image' || activeTab === 'audio') && (
-          <div className="form-group">
-            <label className="form-label">
-              {activeTab === 'image' ? 'Upload Screenshot / Image (PNG, JPG, WEBP):' : 'Upload Recorded Call / Voice Note (MP3, WAV, M4A):'}
-            </label>
-            <div className="file-drop-zone">
-              <input
-                type="file"
-                id="file-upload"
-                className="file-input-hidden"
-                accept={activeTab === 'image' ? 'image/*' : 'audio/*'}
-                onChange={handleFileChange}
-              />
-              <label htmlFor="file-upload" className="file-drop-label">
-                <Upload size={32} className="upload-icon" />
-                <span className="file-drop-title">
-                  {selectedFile ? selectedFile.name : `Click or drag ${activeTab === 'image' ? 'image screenshot' : 'audio clip'} here`}
+          <div className="form-actions-command">
+            <button
+              type="submit"
+              className="btn-primary-3d"
+              disabled={isLoading || (activeTab === 'text' && !textInput.trim()) || (activeTab === 'url' && !urlInput.trim()) || ((activeTab === 'image' || activeTab === 'audio') && !selectedFile)}
+            >
+              {isLoading ? (
+                <span className="spinner-wrapper">
+                  <span className="spinner"></span> Analyzing Threat Indicators...
                 </span>
-                <span className="file-drop-sub">Max size 10MB</span>
-              </label>
-            </div>
-            {previewUrl && (
-              <div className="image-preview-wrapper">
-                <img src={previewUrl} alt="Upload Preview" className="uploaded-preview-img" />
-              </div>
-            )}
+              ) : (
+                <>
+                  <ShieldAlert size={18} strokeWidth={1.5} className="cta-shield-icon" />
+                  <span>Analyze For Scam Indicators</span>
+                </>
+              )}
+            </button>
           </div>
-        )}
-
-        <div className="form-group context-group">
-          <label htmlFor="context-input" className="form-label secondary-label">
-            Context / Platform details (optional):
-          </label>
-          <input
-            id="context-input"
-            type="text"
-            className="form-input secondary-input"
-            placeholder="e.g. Received via WhatsApp from unknown number +91-9876543210"
-            value={contextInput}
-            onChange={(e) => setContextInput(e.target.value)}
-          />
-        </div>
-
-        <div className="form-actions">
-          <button
-            type="submit"
-            className="btn-submit-analyze"
-            disabled={isLoading || (activeTab === 'text' && !textInput.trim()) || (activeTab === 'url' && !urlInput.trim()) || ((activeTab === 'image' || activeTab === 'audio') && !selectedFile)}
-          >
-            {isLoading ? (
-              <span className="spinner-wrapper">
-                <span className="spinner"></span> Analyzing Scam Signals...
-              </span>
-            ) : (
-              <>
-                <ShieldAlert size={20} />
-                <span>Analyze For Scam Indicators</span>
-              </>
-            )}
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
