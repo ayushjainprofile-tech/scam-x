@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRUSTX AI Shield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div className="popup-container">
+    <header className="popup-header">
+      <div className="logo-row">
+        <span className="logo-icon">🛡️</span>
+        <span className="logo-text">TRUSTX <span className="logo-orange">AI</span></span>
+      </div>
+      <span className="badge-live">EXTENSION SHIELD</span>
+    </header>
+
+    <main className="popup-content">
+      <div className="input-block">
+        <label className="input-label">Analyze Message, Link, or SMS:</label>
+        <textarea id="popup-input" placeholder="Paste suspicious SMS, WhatsApp message, or URL here..."></textarea>
+        <button id="analyze-btn" className="btn-analyze">ANALYZE WITH TRUSTX AI →</button>
+      </div>
+
+      <div id="results-area" className="results-area" style="display: none;">
+        <div className="score-card-3d">
+          <div className="card-top">
+            <span id="risk-pill" className="risk-pill">CRITICAL RISK</span>
+            <span id="time-pill" className="time-pill">42ms</span>
+          </div>
+          <div className="score-row">
+            <div id="score-num" className="score-num">88</div>
+            <div className="score-meta">
+              <span className="score-max">/ 100</span>
+              <span className="score-title">THREAT INDEX</span>
+            </div>
+          </div>
+          <div id="scam-title" className="scam-title">Financial Phishing Fraud</div>
+          <p id="scam-summary" className="scam-summary"></p>
+          <div className="helpline-alert">
+            <span>HELPLINE:</span> <strong>1930</strong>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
